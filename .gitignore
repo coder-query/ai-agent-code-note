@@ -1,0 +1,118 @@
+# ============================================
+# Python 项目 .gitignore
+# ============================================
+
+# ---------- 字节码 / 缓存 ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ---------- 虚拟环境 ----------
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ---------- 分发 / 打包 ----------
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+sdist/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# ---------- 包管理 ----------
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+# poetry
+poetry.lock  # 如需锁定依赖版本，请删除此行
+# pdm
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# ---------- 单元测试 / 覆盖率 ----------
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.nose2/
+
+# ---------- 类型检查 / 代码质量 ----------
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+.eslint_cache
+
+# ---------- Jupyter Notebook ----------
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# ---------- 环境变量 / 密钥（安全） ----------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+
+# ---------- IDE / 编辑器 ----------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ---------- 操作系统 ----------
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ---------- 日志 / 临时文件 ----------
+*.log
+logs/
+*.tmp
+*.bak
+tmp/
+temp/
+
+# ---------- 数据库 ----------
+*.sqlite3
+*.db
+*.sql
+
+# ---------- 其他 ----------
+celerybeat-schedule
+celerybeat.pid
+*.sage.py
+.instance/
+docs/_build/
+target/
