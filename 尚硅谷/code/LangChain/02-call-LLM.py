@@ -201,4 +201,4 @@ if __name__ == '__main__':
     #5. 异步调用LLM
     asyncio.run(async_call_llm_main())
     #6. 同步调用LLM
-    # sync_call_llm_main()
+    sync_call_llm_main()
