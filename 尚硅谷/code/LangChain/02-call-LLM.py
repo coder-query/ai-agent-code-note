@@ -3,7 +3,7 @@ from openai import OpenAI
 from openai.types.chat import ChatCompletionUserMessageParam, ChatCompletionSystemMessageParam
 from dotenv import load_dotenv
 import os
-
+import asyncio
 from openai.types.responses import WebSearchToolParam
 
 load_dotenv()
@@ -55,6 +55,7 @@ def call_llm_withLangChainAPI():
         base_url=base_url,
         model_provider="openai",
     )
+
     call_response = llm.invoke(
         [
             {
@@ -66,7 +67,138 @@ def call_llm_withLangChainAPI():
     print(call_response)
     print(type(call_response))
 
+def get_model_from_openai_package():
+  from langchain_openai import ChatOpenAI
+  llm = ChatOpenAI(
+    model="gpt-5.6-sol",
+    temperature=0.0,
+    base_url=base_url,
+    api_key=api_key
+  )
+  resp = llm.invoke("你好,你是谁？")
+  print(type(resp))
+  print(resp.content)
+
+async def async_call_llm_withLangChainAPI(msg):
+    from langchain_openai import ChatOpenAI
+    llm = ChatOpenAI(
+        model="gpt-5.6-sol",
+        temperature=0.0,
+        base_url=base_url,
+        api_key=api_key
+    )
+    resp = await llm.ainvoke(msg)
+    print(type(resp))
+    print(resp.content)
+    return resp
+
+async def async_call_llm_main():
+    import time
+    start_time = time.time()
+    msg = [
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道机器学习是什么吗？"
+            }
+        ],
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道深度学习是什么吗？"
+            }
+        ],
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道强化学习是什么吗？"
+            }
+        ]
+    ]
+    asyncio_task = [async_call_llm_withLangChainAPI(msg) for msg in msg]
+    res = await asyncio.gather(*asyncio_task)
+    print(f"async_call_llm_main: -----> {res}")
+    end_time = time.time()
+    print(f"async_call_llm_main异步执行总耗时: -----> {end_time - start_time}")
+
+def sync_call_llm_main():
+    import time
+    start_time = time.time()
+    msg = [
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道机器学习是什么吗？"
+            }
+        ],
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道深度学习是什么吗？"
+            }
+        ],
+        [
+            {
+                "role": "system",
+                "content": "你是一个高级算法工程师"
+            },
+            {
+                "role": "user",
+                "content": "你好,你是谁？你知道强化学习是什么吗？"
+            }
+        ]
+    ]
+    for msg in msg:
+        sync_call_llm_withLangChainAPI(msg)
+    end_time = time.time()
+    print(f"sync_call_llm_main同步执行总耗时: -----> {end_time - start_time}")
+
+def sync_call_llm_withLangChainAPI(msg):
+    from langchain_openai import ChatOpenAI
+    llm = ChatOpenAI(
+        model="gpt-5.6-sol",
+        temperature=0.0,
+        base_url=base_url,
+        api_key=api_key
+    )
+    resp = llm.invoke(msg)
+    print(type(resp))
+    print(resp.content)
+    return resp
+
+
+
 if __name__ == '__main__':
-    # call_llm_withChatCompletionAPI()
-    # call_llm_withResonseAPI()
-    call_llm_withLangChainAPI()
+
+    # 1. 使用openai的chat.completions.create接口调用LLM
+    #            call_llm_withChatCompletionAPI()
+    #2. 使用openai的responses.create接口调用LLM
+    #            call_llm_withResonseAPI()
+    #3. 使用langchain的chat_models.init_chat_model接口调用LLM
+    #            call_llm_withLangChainAPI()
+    #4. 使用langchain_openai的ChatOpenAI接口调用LLM
+    #             get_model_from_openai_package()
+    #5. 异步调用LLM
+    asyncio.run(async_call_llm_main())
+    #6. 同步调用LLM
+    # sync_call_llm_main()
