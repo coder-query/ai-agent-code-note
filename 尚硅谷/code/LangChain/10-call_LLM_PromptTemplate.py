@@ -7,7 +7,7 @@ api_key = os.getenv('API_KEY')
 base_url = os.getenv('BASE_URL')
 
 def prompt_template_demo():
-    from langchain_core.prompts import ChatPromptTemplate
+    from langchain_core.prompts import PromptTemplate
     from langchain.chat_models import init_chat_model
     from langchain_core.messages import HumanMessage,SystemMessage
 
@@ -17,9 +17,10 @@ def prompt_template_demo():
       base_url=base_url,
       model_provider="openai",
       temperature=0.0,
+
     )
     sysMessage = SystemMessage(content="你是一个高级算法工程师")
-    prompt_template = ChatPromptTemplate.from_template("请给我讲解{subject}是什么？")
+    prompt_template = PromptTemplate.from_template(template="请给我讲解{subject}是什么？")
     userMessage = HumanMessage(content=prompt_template.format(subject="机器学习"))
     res = llm.invoke([sysMessage,userMessage])
     print(res)
