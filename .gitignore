@@ -120,3 +120,10 @@ celerybeat.pid
 docs/_build/
 target/
 /尚硅谷/code/LangChain/assets/
+
+# ---------- 大模型权重文件（防止误提交触发 LFS / 超 Gitee 100MB 限制） ----------
+*.safetensors
+*.bin
+*.pth
+*.onnx
+models/
