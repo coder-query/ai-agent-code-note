@@ -119,3 +119,4 @@ celerybeat.pid
 .instance/
 docs/_build/
 target/
+/尚硅谷/code/LangChain/assets/
