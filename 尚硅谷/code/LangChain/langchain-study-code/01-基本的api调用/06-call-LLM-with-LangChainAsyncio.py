@@ -56,8 +56,8 @@ async def async_call_llm_main():
             }
         ]
     ]
-    asyncio_task = [async_call_llm_withLangChainAPI(msg) for msg in msgList]
-    res = await asyncio.gather(*asyncio_task)
+    tasks = [asyncio.create_task(async_call_llm_withLangChainAPI(msg)) for msg in msgList]
+    res = await asyncio.gather(*tasks)
     print(f"async_call_llm_main: -----> {res}")
     end_time = time.time()
     print(f"async_call_llm_main异步执行总耗时: -----> {end_time - start_time}")
